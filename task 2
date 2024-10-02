@@ -1,0 +1,275 @@
+CREATE TABLE Books (
+  2  book_id NUMBER PRIMARY KEY,
+  3  title VARCHAR2(100)NOT NULL,
+  4  author VARCHAR2(100),
+  5  genre VARCHAR2(50),
+  6  publication_year NUMBER(4),
+  7  copies_available NUMBER
+  8  );
+
+Table created.
+
+SQL> CREATE TABLE Members(
+  2  member_id NUMBER PRIMARY KEY,
+  3  first_name VARCHAR2(50),
+  4  last_name VARCHAR2(50),
+  5  email VARCHAR2(100),
+  6  join_date DATE
+  7  );
+
+Table created.
+
+SQL> CREATE TABLE Transactions (
+  2  transaction_id NUMBER PRIMARY KEY,
+  3  book_id NUMBER,
+  4  member_id NUMBER,
+  5  borrow_date DATE,
+  6  return_date DATE,
+  7  FOREIGN KEY (book_id) REFERENCES Books(book_id),
+  8  FOREIGN KEY (member_id) REFERENCES Members(member_id)
+  9  );
+
+Table created.
+
+SQL> INSERT INTO Books (book_id,title,author,genre,publication_year,copies_available)
+  2  VALUES (1,'Psychology of money','Morgan Housel','Fiction',2020,5);
+
+1 row created.
+
+SQL> INSERT INTO Books (book_id,title,author,genre,publication_year,copies_available)
+  2  VALUES (2,'To kill a Mockingbird','Geroge Orwell','Fiction',1999,10);
+
+1 row created.
+
+SQL> INSERT INTO Books (book_id,title,author,genre,publication_year,copies_available)
+  2  VALUES (3,'The art of letting go','David','Science',2015,7);
+
+1 row created.
+
+SQL> INSERT INTO Members (member_id,first_name,last_name,email,join_date)
+  2  VALUES (1,'Abi','suresh','abi02@gmail.com',TO_DATE('2024-01-15','YYYY-MM-DD'));
+
+1 row created.
+
+SQL> SP2-0042: unknown command "V" - rest of line ignored.
+SQL> INSERT INTO Members (member_id,first_name,last_name,email,join_date)
+  2  VALUES (2,'Aishu','Yogi','aishu7@gmail.com',TO_DATE('2024-07-07','YYYY-MM-DD'));
+
+1 row created.
+
+SQL> INSERT INTO Members (member_id,first_name,last_name,email,join_date)
+  2  VALUES (3,'Karthi','kumar','karthii9@gmail.com',TO_DATE('2024-05-05','YYYY-MM-DD'));
+
+1 row created.
+
+SQL> INSERT INTO Members (member_id,first_name,last_name,email,join_date)
+  2
+SQL> INSERT INTO Transactions (transaction_id,book_id,member_id,borrow_date,return_date)
+  2  VALUES (1,1,1,TO_DATE('2024-01-10','YYYY-MM-DD'),NULL);
+
+1 row created.
+
+SQL> INSERT INTO Transactions (transaction_id,book_id,member_id,borrow_date,return_date)
+  2  VALUES(2,2,2,TO_DATE('2024-02-03','YYYY-MM-DD'),NULL);
+
+1 row created.
+
+SQL> INSERT INTO Transactions (transaction_id,book_id,member_id,borrow_date,return_date)
+  2  VALUES(3,3,3,TO_DATE('2024-11-10','YYYY-MM-DD'),NULL);
+
+1 row created.
+
+SQL> SELECT * FROM Books;
+
+   BOOK_ID
+----------
+TITLE
+--------------------------------------------------------------------------------
+AUTHOR
+--------------------------------------------------------------------------------
+GENRE                                              PUBLICATION_YEAR
+-------------------------------------------------- ----------------
+COPIES_AVAILABLE
+----------------
+         1
+Psychology of money
+Morgan Housel
+
+   BOOK_ID
+----------
+TITLE
+--------------------------------------------------------------------------------
+AUTHOR
+--------------------------------------------------------------------------------
+GENRE                                              PUBLICATION_YEAR
+-------------------------------------------------- ----------------
+COPIES_AVAILABLE
+----------------
+Fiction                                                        2020
+               5
+
+
+   BOOK_ID
+----------
+TITLE
+--------------------------------------------------------------------------------
+AUTHOR
+--------------------------------------------------------------------------------
+GENRE                                              PUBLICATION_YEAR
+-------------------------------------------------- ----------------
+COPIES_AVAILABLE
+----------------
+         2
+To kill a Mockingbird
+Geroge Orwell
+
+   BOOK_ID
+----------
+TITLE
+--------------------------------------------------------------------------------
+AUTHOR
+--------------------------------------------------------------------------------
+GENRE                                              PUBLICATION_YEAR
+-------------------------------------------------- ----------------
+COPIES_AVAILABLE
+----------------
+Fiction                                                        1999
+              10
+
+
+   BOOK_ID
+----------
+TITLE
+--------------------------------------------------------------------------------
+AUTHOR
+--------------------------------------------------------------------------------
+GENRE                                              PUBLICATION_YEAR
+-------------------------------------------------- ----------------
+COPIES_AVAILABLE
+----------------
+         3
+The art of letting go
+David
+
+   BOOK_ID
+----------
+TITLE
+--------------------------------------------------------------------------------
+AUTHOR
+--------------------------------------------------------------------------------
+GENRE                                              PUBLICATION_YEAR
+-------------------------------------------------- ----------------
+COPIES_AVAILABLE
+----------------
+Science                                                        2015
+               7
+
+
+SQL> SET LINESIZE 200;
+SQL> SET PAGESIZE 50;
+SQL> COLUMN title FORMAT A40;
+SQL> COLUMN AUTHOR FORMAT A30;
+SQL> COLUMN GENRE A20;
+SP2-0158: unknown COLUMN option "A20"
+SQL> COLUMN GENRE A30;
+SP2-0158: unknown COLUMN option "A30"
+SQL> COLUMN genre FORMAT A30;
+SQL> COLUMN publication_year FORMAT 999999999;
+SQL> COLUMN copies_available FORMAT 999999999;
+SQL> SELECT * FROM Books;
+
+   BOOK_ID TITLE                                    AUTHOR                         GENRE                          PUBLICATION_YEAR COPIES_AVAILABLE
+---------- ---------------------------------------- ------------------------------ ------------------------------ ---------------- ----------------
+         1 Psychology of money                      Morgan Housel                  Fiction                                    2020                5
+         2 To kill a Mockingbird                    Geroge Orwell                  Fiction                                    1999               10
+         3 The art of letting go                    David                          Science                                    2015                7
+
+SQL> SET LINESIZE 200;
+SQL> SET PAGESIZE 50;
+SQL> COLUMN first_name FORMAT A340;
+SQL>
+SQL>  SET LINESIZE 200;
+SQL>  SET PAGESIZE 50;
+SQL>
+SQL> SET LINESIZE 200;
+SQL> SET PAGESIZE 50;
+SQL> COLUMN first_name FORMAT A40;
+SQL> COLUMN last_name FORMAT A30;
+SQL> COLUMN email FORMAT A40;
+SQL> SELECT * FROM Members;
+
+ MEMBER_ID FIRST_NAME                               LAST_NAME                      EMAIL                                    JOIN_DATE
+---------- ---------------------------------------- ------------------------------ ---------------------------------------- ---------
+         1 Abi                                      suresh                         abi02@gmail.com                          15-JAN-24
+         2 Aishu                                    Yogi                           aishu7@gmail.com                         07-JUL-24
+         3 Karthi                                   kumar                          karthii9@gmail.com                       05-MAY-24
+
+SQL> SELECT * FROM Transactions;
+
+TRANSACTION_ID    BOOK_ID  MEMBER_ID BORROW_DA RETURN_DA
+-------------- ---------- ---------- --------- ---------
+             1          1          1 10-JAN-24
+             2          2          2 03-FEB-24
+             3          3          3 10-NOV-24
+
+SQL> UPDATE Books
+  2  SET copies_available=copies_available - 1
+  3  WHERE book_id = 1;
+
+1 row updated.
+
+SQL> SELECT * FROM Books;
+
+   BOOK_ID TITLE                                    AUTHOR                         GENRE                          PUBLICATION_YEAR COPIES_AVAILABLE
+---------- ---------------------------------------- ------------------------------ ------------------------------ ---------------- ----------------
+         1 Psychology of money                      Morgan Housel                  Fiction                                    2020                4
+         2 To kill a Mockingbird                    Geroge Orwell                  Fiction                                    1999               10
+         3 The art of letting go                    David                          Science                                    2015                7
+
+SQL> UPDATE Transactions
+  2  SET return_date=TO_DATE('2024-05-01','YYYY-MM-DD')
+  3  WHERE transaction_id=1;
+
+1 row updated.
+
+SQL> SELECT * FROM Transactions;
+
+TRANSACTION_ID    BOOK_ID  MEMBER_ID BORROW_DA RETURN_DA
+-------------- ---------- ---------- --------- ---------
+             1          1          1 10-JAN-24 01-MAY-24
+             2          2          2 03-FEB-24
+             3          3          3 10-NOV-24
+
+SQL> DELETE FROM Transactions
+  2  WHERE transaction_id=2;
+
+1 row deleted.
+
+SQL> SELECT * FROM Transactions;
+
+TRANSACTION_ID    BOOK_ID  MEMBER_ID BORROW_DA RETURN_DA
+-------------- ---------- ---------- --------- ---------
+             1          1          1 10-JAN-24 01-MAY-24
+             3          3          3 10-NOV-24
+
+
+SQL> SELECT title,first_name,last_name,borrow_date
+  2  FROM Books
+  3  JOIN Transactions ON Books.book_id=Transactions.book_id
+  4  JOIN Members ON Members.member_id=Transactions.member_id
+  5  WHERE return_date is NULL;
+
+TITLE                                    FIRST_NAME                               LAST_NAME                      BORROW_DA
+---------------------------------------- ---------------------------------------- ------------------------------ ---------
+The art of letting go                    Karthi                                   kumar                          10-NOV-24
+
+SQL> SELECT * FROM Books
+  2  WHERE copies_available >0;
+
+   BOOK_ID TITLE                                    AUTHOR                         GENRE                          PUBLICATION_YEAR COPIES_AVAILABLE
+---------- ---------------------------------------- ------------------------------ ------------------------------ ---------------- ----------------
+         1 Psychology of money                      Morgan Housel                  Fiction                                    2020                4
+         2 To kill a Mockingbird                    Geroge Orwell                  Fiction                                    1999               10
+         3 The art of letting go                    David                          Science                                    2015                7
+
+SQL>
